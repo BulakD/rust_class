@@ -1,9 +1,21 @@
-use clap::App;
+use clap::{Arg, ArgAction, Command};
 fn main() {
-    let _matches = App::new("echor")
+    let matches = Command::new("echor")
         .version("0.1.0")
         .author("Dmitry <dmitryi@proton.me>")
         .about("Rust echo")
+        .arg(
+            Arg::new("text")
+                .value_name("TEXT")
+                .required(true)
+                .num_args(1..),
+        )
+        .arg(
+            Arg::new("omit_newline")
+                .short('n')
+                .action(ArgAction::SetTrue)
+                .help("Do not print newline"),
+        )
         .get_matches();
-    println!("Hello, world!");
+    println!("{:#?}", matches);
 }
